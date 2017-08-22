@@ -1,22 +1,35 @@
 $(document).ready(function(){
-  $("#bankAcct").submit(function(event){
+  $("#new-account").submit(function(event){
     event.preventDefault();
-    var name = $(".name").val();
-    var withDraw = $(".withDraw").val();
-    var deposit = $(".deposit").val();
-    var newUser = new customerAcct(name, deposit);
-    var newBalance = new balance(deposit);
-    newUser.history.push(newBalance);
-    console.log(newUser.history[0]);
+    var firstName = $("input#new-first-name").val();
+    var lastName = $("input#new-last-name").val();
+    var deposit = $("input.new-deposit").val();
+    var withdraw = $("input.new-withdraw").val();
+    var userAccount = new userInfo(firstName, lastName, deposit, withdraw);
+     console.log(userAccount)
 
-  });
 });
 
-function customerAcct(name,deposit) {
-  this.name=name;
-  this.history = [];
-};
+userInfo=function(firstName, lastName, deposit, withdraw){
+  this.firstName = firstName;
+  this.lastName = lastName;
+  this.initdeposit = deposit;
+  this.withdraw = withdraw;
+  this.balance = parseInt(deposit);
+}
+ acctBalance=function(deposit) {
+   userInfo.balance=userInfo.balance+deposit;
+ }
 
-function balance(deposit){
-  this.deposit= deposit;
-};
+userInfo.prototype.deposit=function() {
+  return parseInt(this.balance + this.initDeposit);
+}
+
+// }
+$("#depwithdraw").submit(function(event){
+  event.preventDefault();
+var deposit = $("input.deposit").val();
+var balance = new acctBalance(deposit);
+
+});
+});
